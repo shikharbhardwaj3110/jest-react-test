@@ -13,6 +13,7 @@ const Login : React.FC = () => {
     });
 
     const [isEnabled, setIsEnabled] = useState<Boolean>(true);
+    const [showError, setShowError] = useState(false);
 
     const handleInputChange = (event : ChangeEvent<HTMLInputElement>) => {
         const { name , value } = event.target;
@@ -36,12 +37,15 @@ const Login : React.FC = () => {
             />
             <button
                 title="submitBtn"
-                disabled={!(isEnabled)}
+                disabled={!formData.username || !formData.password}
                 onClick={ () => {
                     setIsEnabled(!isEnabled);
                 }}
                 style={{ opacity : `${isEnabled ? '1' : '0.5'}`, backgroundColor : 'darkgreen'}}
             />
+            <span style={{ color : 'red', visibility : `${showError ? 'visible' : 'hidden'}` }} title="errorMessage">
+                Something went wrong ! Please try again.
+            </span>
         </>
     )
 }

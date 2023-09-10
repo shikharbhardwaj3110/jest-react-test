@@ -40,10 +40,32 @@ test('submit button gets disabled after clicking', () => {
     expect(submitBtn).toBeDisabled();
 });
 
-test('submit button gets enabled after api response', () => {
+
+test('error message is not initially visible', () => {
     render(<Login/>);
-    const submitBtn : HTMLElement = screen.getByTitle('submitBtn');
-    fireEvent.click(submitBtn);
+    const errorMessage : HTMLElement = screen.getByTitle('errorMessage');
+    expect(errorMessage).not.toBeVisible();
+});
+
+test('username and password inputs should change', () => {
+    render(<Login/>);
+    const usernameInput : HTMLInputElement = screen.getByPlaceholderText('username');
+    const testUsername : string = "testusername";
+
+    fireEvent.change(usernameInput, { target : { value : testUsername}});
+    expect(usernameInput.value).toBe(testUsername);
+
+    const passwordInput : HTMLInputElement = screen.getByPlaceholderText('password');
+    const testPassword : string = "testpassword";
+
+    fireEvent.change(passwordInput, { target : { value : testPassword }});
+    expect(passwordInput.value).toBe(testPassword);
+});
+
+// test('submit button gets enabled after api response', () => {
+//     render(<Login/>);
+//     const submitBtn : HTMLElement = screen.getByTitle('submitBtn');
+//     fireEvent.click(submitBtn);
     
-})
+// })
 
